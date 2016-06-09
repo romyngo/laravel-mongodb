@@ -18,6 +18,11 @@ abstract class Model extends BaseModel
     use HybridRelations;
 
     /**
+     * The collection idGeneration
+     */
+    protected $idGeneration = 'STRING';
+
+    /**
      * The collection associated with the model.
      *
      * @var string
@@ -522,7 +527,10 @@ abstract class Model extends BaseModel
     {
         $connection = $this->getConnection();
 
-        return new QueryBuilder($connection, $connection->getPostProcessor());
+        $builder =  new QueryBuilder($connection, $connection->getPostProcessor());
+        $builder->idGeneration = $this->idGeneration;
+
+        return $builder;
     }
 
     /**

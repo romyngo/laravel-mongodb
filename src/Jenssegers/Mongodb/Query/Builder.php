@@ -13,6 +13,12 @@ use MongoDB\BSON\UTCDateTime;
 
 class Builder extends BaseBuilder
 {
+
+    /**
+     * The collection idGeneration
+     */
+    public $idGeneration = 'STRING';
+
     /**
      * The database collection.
      *
@@ -781,7 +787,7 @@ class Builder extends BaseBuilder
      */
     public function convertKey($id)
     {
-        if (is_string($id) and strlen($id) === 24 and ctype_xdigit($id)) {
+        if ($this->idGeneration === 'MONGO' and is_string($id) and strlen($id) === 24 and ctype_xdigit($id)) {
             return new ObjectID($id);
         }
 
